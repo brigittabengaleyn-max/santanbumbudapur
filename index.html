@@ -1,342 +1,423 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>UMKM Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Santan & Bumbu Dapur</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* =======================
-   BASIC STYLE (JANGAN DIUBAH)
-======================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
 }
 
-body {
-  line-height: 1.6;
+body{
+background:#F7F1E8;
+color:#333;
+overflow-x:hidden;
 }
 
-/* NAVBAR */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid #eee;
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
 }
 
-.navbar ul {
-  display: flex;
-  list-style: none;
-  gap: 20px;
+header{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(10px);
+z-index:999;
+box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
 
-.navbar a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 5%;
 }
 
-.menu-toggle {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
+.logo{
+font-size:22px;
+font-weight:700;
+color:#7A4E2D;
 }
 
-/* HERO */
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 50px;
+.menu{
+display:flex;
+gap:30px;
 }
 
-.hero img {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 10px;
+.menu a{
+text-decoration:none;
+color:#333;
+font-weight:500;
 }
 
-/* SECTION */
-section {
-  padding: 60px 30px;
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+background:#F7F1E8;
+padding-top:80px;
+overflow:hidden;
 }
 
-/* PRODUCTS */
-.products {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+.hero-content{
+width:45%;
+padding-left:5%;
 }
 
-.card {
-  border: 1px solid #eee;
-  padding: 15px;
-  border-radius: 10px;
+.hero-content h1{
+font-size:60px;
+line-height:1.1;
+color:#5A3720;
+margin-bottom:20px;
 }
 
-.card img {
-  width: 100%;
-  border-radius: 8px;
+.hero-content p{
+font-size:18px;
+color:#666;
+margin-bottom:30px;
 }
 
-/* ABOUT */
-.about {
-  display: flex;
-  gap: 20px;
-  align-items: center;
+.btn{
+display:inline-block;
+padding:14px 28px;
+background:#A56A3A;
+color:white;
+border-radius:50px;
+text-decoration:none;
+font-weight:600;
 }
 
-.about img {
-  width: 50%;
-  border-radius: 10px;
+.hero-image{
+width:55%;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
 }
 
-/* RECIPE */
-.recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.hero-image img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-/* BUTTON */
-button {
-  padding: 8px 12px;
-  border: none;
-  cursor: pointer;
-  background: #333;
-  color: white;
-  margin-top: 10px;
+.section{
+padding:100px 0;
 }
 
-/* CART */
-.cart {
-  position: relative;
-  cursor: pointer;
+.section-title{
+text-align:center;
+font-size:40px;
+margin-bottom:15px;
+color:#5A3720;
 }
 
-.cart span {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-  background: red;
-  color: white;
-  border-radius: 50%;
-  font-size: 12px;
-  padding: 2px 6px;
+.section-sub{
+text-align:center;
+color:#777;
+margin-bottom:50px;
 }
 
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  justify-content: center;
-  align-items: center;
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.05);
+text-align:center;
+transition:.3s;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-
-  .hero {
-    flex-direction: column;
-  }
-
-  .about {
-    flex-direction: column;
-  }
-
-  .products {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .recipe-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .navbar ul {
-    display: none;
-    flex-direction: column;
-    background: white;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    padding: 10px;
-    border: 1px solid #eee;
-  }
-
-  .navbar ul.active {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
+.card:hover{
+transform:translateY(-5px);
 }
+
+.card img{
+width:100%;
+height:220px;
+object-fit:contain;
+}
+
+.card h3{
+margin-top:15px;
+color:#5A3720;
+}
+
+.about{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:center;
+}
+
+.about img{
+width:100%;
+border-radius:25px;
+}
+
+.about-text h2{
+font-size:42px;
+color:#5A3720;
+margin-bottom:20px;
+}
+
+.about-text p{
+line-height:1.8;
+color:#666;
+}
+
+.faq{
+max-width:900px;
+margin:auto;
+}
+
+details{
+background:white;
+padding:20px;
+border-radius:15px;
+margin-bottom:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+summary{
+font-weight:600;
+cursor:pointer;
+}
+
+.contact{
+text-align:center;
+}
+
+.contact p{
+margin-bottom:10px;
+}
+
+footer{
+background:#5A3720;
+color:white;
+text-align:center;
+padding:25px;
+}
+
+@media(max-width:992px){
+
+.hero{
+flex-direction:column;
+}
+
+.hero-content{
+width:100%;
+text-align:center;
+padding:50px 8%;
+}
+
+.hero-content h1{
+font-size:42px;
+}
+
+.hero-image{
+width:100%;
+height:450px;
+}
+
+.about{
+grid-template-columns:1fr;
+}
+
+.menu{
+display:none;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <div><strong>UMKM</strong></div>
+<nav>
 
-  <nav class="navbar">
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <ul id="menu">
-      <li><a href="#home">Beranda</a></li>
-      <li><a href="#about">Tentang Kami</a></li>
-      <li><a href="#products">Produk</a></li>
-      <li><a href="#recipe">Resep</a></li>
-      <li><a href="#testimoni">Testimoni</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#contact">Kontak</a></li>
-    </ul>
-  </nav>
-
-  <div class="cart">
-    🛒 <span id="cartCount">0</span>
-  </div>
-</header>
-
-<!-- HERO -->
-<section id="home" class="hero">
-  <div>
-    <h1>Selamat Datang di UMKM Kami</h1>
-    <p>Produk lokal berkualitas</p>
-  </div>
-  <img src="images/hero.jpg" alt="Hero Image">
-</section>
-
-<!-- PRODUCTS -->
-<section id="products">
-  <h2>Produk Kami</h2>
-  <div class="products">
-
-    <div class="card">
-      <img src="images/product1.jpg">
-      <h3>Produk 1</h3>
-      <button onclick="addCart()">Tambah ke Keranjang</button>
-    </div>
-
-    <div class="card">
-      <img src="images/product2.jpg">
-      <h3>Produk 2</h3>
-      <button onclick="addCart()">Tambah ke Keranjang</button>
-    </div>
-
-    <div class="card">
-      <img src="images/product3.jpg">
-      <h3>Produk 3</h3>
-      <button onclick="addCart()">Tambah ke Keranjang</button>
-    </div>
-
-    <div class="card">
-      <img src="images/product4.jpg">
-      <h3>Produk 4</h3>
-      <button onclick="addCart()">Tambah ke Keranjang</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="about">
-  <img src="images/about.jpg">
-  <div>
-    <h2>Tentang Kami</h2>
-    <p>UMKM kami bergerak di bidang makanan dan bumbu dapur.</p>
-  </div>
-</section>
-
-<!-- RECIPE -->
-<section id="recipe">
-  <h2>Resep Favorit</h2>
-
-  <div class="recipe-grid">
-
-    <div class="card">
-      <img src="images/resep1.jpg">
-      <h3>Resep 1</h3>
-      <button onclick="openModal('Resep 1','Bumbu dasar','Masak hingga matang')">Lihat Resep</button>
-    </div>
-
-    <div class="card">
-      <img src="images/resep2.jpg">
-      <h3>Resep 2</h3>
-      <button onclick="openModal('Resep 2','Santan','Campur dan aduk')">Lihat Resep</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- TESTIMONI -->
-<section id="testimoni">
-  <h2>Testimoni</h2>
-</section>
-
-<!-- FAQ -->
-<section id="faq">
-  <h2>FAQ</h2>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <h2>Kontak</h2>
-</section>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h3 id="title"></h3>
-    <p id="bahan"></p>
-    <p id="langkah"></p>
-    <button onclick="closeModal()">Tutup</button>
-  </div>
+<div class="logo">
+Santan & Bumbu Dapur
 </div>
 
-<script>
-let cart = 0;
+<div class="menu">
+<a href="#home">Home</a>
+<a href="#produk">Produk</a>
+<a href="#tentang">Tentang</a>
+<a href="#faq">FAQ</a>
+<a href="#kontak">Kontak</a>
+</div>
 
-function addCart() {
-  cart++;
-  document.getElementById("cartCount").innerText = cart;
-}
+</nav>
+</header>
 
-function openModal(title, bahan, langkah) {
-  document.getElementById("modal").style.display = "flex";
-  document.getElementById("title").innerText = title;
-  document.getElementById("bahan").innerText = "Bahan: " + bahan;
-  document.getElementById("langkah").innerText = "Langkah: " + langkah;
-}
+<section class="hero" id="home">
 
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
+<div class="hero-content">
 
-function toggleMenu() {
-  document.getElementById("menu").classList.toggle("active");
-}
-</script>
+<h1>
+Cita Rasa Asli Jawa dalam Setiap Masakan
+</h1>
+
+<p>
+Santan dan bumbu dapur berkualitas untuk menghadirkan cita rasa autentik masakan Indonesia.
+</p>
+
+<a href="#produk" class="btn">
+Lihat Produk
+</a>
+
+</div>
+
+<div class="hero-image">
+<img src="images/hero.webp" alt="Hero Santan dan Bumbu Dapur">
+</div>
+
+</section>
+
+<section class="section" id="produk">
+
+<div class="container">
+
+<h2 class="section-title">
+Produk Unggulan
+</h2>
+
+<p class="section-sub">
+Pilihan bumbu praktis dengan rasa autentik.
+</p>
+
+<div class="products">
+
+<div class="card">
+<img src="images/rendang.webp">
+<h3>Bumbu Rendang</h3>
+</div>
+
+<div class="card">
+<img src="images/opor.webp">
+<h3>Bumbu Opor</h3>
+</div>
+
+<div class="card">
+<img src="images/gulai.webp">
+<h3>Bumbu Gulai</h3>
+</div>
+
+<div class="card">
+<img src="images/soto.webp">
+<h3>Bumbu Soto</h3>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="tentang">
+
+<div class="container">
+
+<div class="about">
+
+<img src="images/hero.webp">
+
+<div class="about-text">
+
+<h2>
+Tentang Kami
+</h2>
+
+<p>
+UMKM Santan & Bumbu Dapur menghadirkan produk santan dan bumbu masak berkualitas yang dibuat dari bahan pilihan untuk membantu masyarakat menciptakan masakan lezat dengan mudah dan praktis.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="faq">
+
+<div class="container">
+
+<h2 class="section-title">
+Pertanyaan yang Sering Ditanya
+</h2>
+
+<div class="faq">
+
+<details>
+<summary>Apakah produk menggunakan bahan alami?</summary>
+<p>Ya, menggunakan bahan pilihan berkualitas tanpa mengurangi cita rasa asli.</p>
+</details>
+
+<details>
+<summary>Berapa lama masa simpan produk?</summary>
+<p>Masa simpan mengikuti tanggal kedaluwarsa yang tertera pada kemasan.</p>
+</details>
+
+<details>
+<summary>Apakah produk mudah digunakan?</summary>
+<p>Sangat mudah, cukup tambahkan ke masakan sesuai petunjuk penggunaan.</p>
+</details>
+
+<details>
+<summary>Di mana produk dapat dibeli?</summary>
+<p>Dapat dibeli melalui kontak resmi UMKM dan mitra penjualan.</p>
+</details>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="kontak">
+
+<div class="container contact">
+
+<h2 class="section-title">
+Kontak Kami
+</h2>
+
+<p>📍 Batam, Indonesia</p>
+<p>📞 +62 xxx xxxx xxxx</p>
+<p>✉️ santanbumbudapur@email.com</p>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Santan & Bumbu Dapur. All Rights Reserved.
+</footer>
 
 </body>
 </html>
